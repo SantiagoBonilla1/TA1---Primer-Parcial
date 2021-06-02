@@ -1,4 +1,4 @@
-<?php
+<?php 
 	$nombre = $_POST['nombre'];
 	$apellido = $_POST['apellido'];
 	$telefono = $_POST['telefono'];
@@ -6,24 +6,24 @@
 	$fechadeNacimiento = $_POST['fechadeNacimiento'];
 	$email = $_POST['email'];
 	$conexion = new mysqli("127.0.0.1","root","","escritophp");
-	guardar($nombre, $apellido, $telefono, $edad, $fechadeNacimiento, $email, $conexion)
+	guardar($nombre, $apellido, $telefono, $edad, $fechadeNacimiento, $email, $conexion);
 	
 	function guardar($nombreG, $apellidoG, $telefonoG, $edadG, $fechadeNacimientoG, $emailG, $conexionG){
-		if(validardatosingresados){
+		if(validardatosingresados($nombreG, $apellidoG, $telefonoG, $edadG, $fechadeNacimientoG, $emailG)){
 			$sql = "INSERT INTO persona(nombre,apellido,telefono,edad,fechadeNacimiento,email) VALUES (
             '$nombreG',
             '$apellidoG',
             '$telefonoG',
             '$edadG',
             '$fechadeNacimientoG',
-            '$emailG'}
+            '$emailG'
 			)";
-			echo("Persona Agregada correctamente")
+			mysqli_query($conexionG, $sql);
+			echo("Persona Agregada correctamente");
 		}else{
 			header("HTTP/1.1 500 Internal server error");
-			echo("Hubo un problema al procesar la solicitud")
+			echo("Hubo un problema al procesar la solicitud");
 		}
-		mysqli_query($conexion, $sql);
 	}
 	
 	function validardatosingresados($nombre, $apellido, $telefono, $edad, $fechadeNacimiento, $email){
